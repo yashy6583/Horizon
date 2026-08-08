@@ -36,8 +36,16 @@ function App() {
         <Route path="/curriculum" element={<CurriculumPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/profile/:id" element={<ProfilePage />} />
+        
+        {/* Setup Interview Routes */}
+        <Route path="/start" element={<StartInterviewPage />} />
+        <Route path="/interview" element={<StartInterviewPage />} />
         <Route path="/interview/start" element={<StartInterviewPage />} />
+        
+        {/* Live Interview Room Routes */}
+        <Route path="/live" element={<LiveInterviewPage />} />
         <Route path="/interview/live" element={<LiveInterviewPage />} />
+        
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
