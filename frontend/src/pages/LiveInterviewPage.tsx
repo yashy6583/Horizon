@@ -17,11 +17,24 @@ import {
 const MIN_CHARS = 10;
 const MAX_CHARS = 2000;
 
+const DEFAULT_CANDIDATE: Candidate = {
+  member: { id: 'CAND-001', name: 'Jordan Rivera', email: 'jordan.rivera@example.com', jobRole: 'Senior AI Systems Engineer', yearsExperience: 4, education: 'MS Computer Science, MIT' },
+  missions: [
+    { day: 7, title: 'Text Embeddings & Semantic Similarity', passed: true, attempts: 3 },
+    { day: 8, title: 'Vector Databases', passed: true, attempts: 1 },
+    { day: 10, title: 'Retrieval Engine & Hybrid Search', passed: true, attempts: 1 },
+    { day: 11, title: 'Retrieval-Augmented Generation (RAG)', passed: true, attempts: 1 },
+    { day: 12, title: 'Prompt Engineering', passed: true, attempts: 2 },
+    { day: 13, title: 'LLM Function Calling & Structured Outputs', passed: true, attempts: 1 }
+  ],
+  signals: { missionsCompleted: 24, missionsFirstTry: 14, commitDays: 27, avgDailyHours: 2.8 }
+};
+
 export const LiveInterviewPage: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const candidate = location.state?.candidate as Candidate | undefined;
-  const persona = location.state?.persona as string | undefined;
+  const candidate = (location.state?.candidate as Candidate | undefined) || DEFAULT_CANDIDATE;
+  const persona = (location.state?.persona as string | undefined) || 'engineer';
 
   const { state, begin, respond, reset } = useInterview();
   const [answer, setAnswer] = useState('');
