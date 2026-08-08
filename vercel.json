@@ -23,7 +23,11 @@
       "destination": "/api/index.ts"
     },
     {
-      "source": "/((?!api|health).*)",
+      "source": "/assets/(.*)",
+      "destination": "/frontend/assets/$1"
+    },
+    {
+      "source": "/((?!api|health|assets).*)",
       "destination": "/frontend/index.html"
     }
   ]
