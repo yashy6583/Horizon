@@ -1,0 +1,315 @@
+{
+  "cohort": "ABTalks AI Cohort",
+  "modules": [
+    { "n": 1, "title": "Foundations & Embeddings", "days": [7, 8, 9, 10] },
+    { "n": 2, "title": "RAG Systems", "days": [11] },
+    { "n": 3, "title": "Prompt Engineering & Function Calling", "days": [12, 13] },
+    { "n": 4, "title": "Fine-Tuning", "days": [14, 15] },
+    { "n": 5, "title": "Chatbot Backend & Frontend", "days": [16, 17, 18, 19, 20] },
+    { "n": 6, "title": "Agentic AI & MCP", "days": [21, 22, 23, 24] },
+    { "n": 7, "title": "Evaluation & Optimization", "days": [25, 26] },
+    { "n": 8, "title": "Security & Production", "days": [27, 28, 29, 30, 31] }
+  ],
+  "days": [
+    {
+      "day": 7,
+      "title": "Text Embeddings & Semantic Similarity",
+      "type": "foundation",
+      "tools": ["OpenAI Embeddings API", "Sentence Transformers", "NumPy", "Matplotlib"],
+      "objectives": [
+        "Understand what text embeddings are and how they represent semantic meaning",
+        "Compute cosine similarity between embedding vectors",
+        "Visualize embedding spaces using PCA and t-SNE",
+        "Compare embedding models (OpenAI vs open-source)"
+      ]
+    },
+    {
+      "day": 8,
+      "title": "Vector Databases",
+      "type": "infrastructure",
+      "tools": ["ChromaDB", "Pinecone", "FAISS", "HNSW"],
+      "objectives": [
+        "Understand how vector databases differ from relational databases",
+        "Implement CRUD operations on a vector store",
+        "Understand approximate nearest neighbor (ANN) search and HNSW indexing",
+        "Choose between local (ChromaDB/FAISS) and cloud (Pinecone) vector stores"
+      ]
+    },
+    {
+      "day": 9,
+      "title": "Populating a Vector Database",
+      "type": "practical",
+      "tools": ["ChromaDB", "LangChain", "PyPDF2", "Sentence Transformers"],
+      "objectives": [
+        "Load and chunk documents for embedding",
+        "Embed and upsert documents into a vector database",
+        "Add metadata to vectors for filtered search",
+        "Build a document ingestion pipeline"
+      ]
+    },
+    {
+      "day": 10,
+      "title": "Retrieval Engine & Hybrid Search",
+      "type": "architecture",
+      "tools": ["ChromaDB", "BM25", "SQLite", "LangChain"],
+      "objectives": [
+        "Build a query router that dispatches to SQL or vector search",
+        "Implement hybrid retrieval combining BM25 and semantic search",
+        "Understand score normalization and result merging",
+        "Evaluate retrieval quality with recall metrics"
+      ]
+    },
+    {
+      "day": 11,
+      "title": "Retrieval-Augmented Generation (RAG)",
+      "type": "architecture",
+      "tools": ["LangChain", "ChromaDB", "OpenAI", "FastAPI"],
+      "objectives": [
+        "Understand the full RAG pipeline: retrieve → augment → generate",
+        "Build a RAG chatbot endpoint with FastAPI",
+        "Construct effective prompt templates for RAG",
+        "Identify and diagnose common RAG failure modes"
+      ]
+    },
+    {
+      "day": 12,
+      "title": "Prompt Engineering",
+      "type": "foundation",
+      "tools": ["OpenAI API", "Anthropic API", "PromptLayer"],
+      "objectives": [
+        "Master zero-shot, few-shot, and chain-of-thought prompting",
+        "Design and version system prompts for production",
+        "Evaluate prompt performance systematically",
+        "Understand prompt injection and mitigation strategies"
+      ]
+    },
+    {
+      "day": 13,
+      "title": "LLM Function Calling & Structured Outputs",
+      "type": "practical",
+      "tools": ["OpenAI Tools API", "Pydantic", "JSON Schema"],
+      "objectives": [
+        "Define tool schemas for LLM function calling",
+        "Orchestrate multi-tool calls and process results",
+        "Use Pydantic for structured output validation",
+        "Compare function calling vs. prompt-based JSON extraction"
+      ]
+    },
+    {
+      "day": 14,
+      "title": "LLM Fine-Tuning Fundamentals",
+      "type": "advanced",
+      "tools": ["OpenAI Fine-tuning API", "HuggingFace", "Weights & Biases"],
+      "objectives": [
+        "Understand when to fine-tune vs. use RAG or prompting",
+        "Prepare a high-quality fine-tuning dataset in JSONL format",
+        "Train and evaluate a fine-tuned model",
+        "Monitor training loss and evaluate on held-out test cases"
+      ]
+    },
+    {
+      "day": 15,
+      "title": "Fine-Tuning with LoRA / QLoRA",
+      "type": "advanced",
+      "tools": ["HuggingFace PEFT", "LoRA", "QLoRA", "bitsandbytes", "Unsloth"],
+      "objectives": [
+        "Understand how LoRA reduces trainable parameters",
+        "Apply QLoRA for memory-efficient fine-tuning",
+        "Configure LoRA hyperparameters (rank, alpha, target modules)",
+        "Evaluate fine-tuned models against base models"
+      ]
+    },
+    {
+      "day": 16,
+      "title": "Chatbot Backend with FastAPI",
+      "type": "engineering",
+      "tools": ["FastAPI", "SQLite", "Pydantic", "OpenAI API"],
+      "objectives": [
+        "Build a production-quality /chat REST endpoint",
+        "Manage conversation session state with SQLite",
+        "Integrate the full RAG pipeline into the chat API",
+        "Handle errors, timeouts, and invalid inputs gracefully"
+      ]
+    },
+    {
+      "day": 17,
+      "title": "Chatbot Frontend with Streamlit",
+      "type": "engineering",
+      "tools": ["Streamlit", "Python requests", "FastAPI"],
+      "objectives": [
+        "Connect a Streamlit UI to the FastAPI backend",
+        "Manage conversation state across Streamlit reruns",
+        "Display chat history with role-based formatting",
+        "Deploy the Streamlit app locally and to Streamlit Cloud"
+      ]
+    },
+    {
+      "day": 18,
+      "title": "Streaming LLM Responses",
+      "type": "engineering",
+      "tools": ["FastAPI SSE", "OpenAI Streaming API", "JavaScript EventSource"],
+      "objectives": [
+        "Implement server-sent events (SSE) for streaming LLM output",
+        "Handle streaming in the FastAPI backend with async generators",
+        "Consume streaming responses in the frontend",
+        "Handle mid-stream interruptions and partial responses"
+      ]
+    },
+    {
+      "day": 19,
+      "title": "Citations, Structured Outputs & Rich Formatting",
+      "type": "engineering",
+      "tools": ["Pydantic", "Markdown", "FastAPI", "React"],
+      "objectives": [
+        "Add source citations to RAG chatbot responses",
+        "Use Pydantic to define structured claim/coverage response models",
+        "Render Markdown safely in the frontend chat interface",
+        "Implement a structured output pipeline with validation"
+      ]
+    },
+    {
+      "day": 20,
+      "title": "Context Window Management",
+      "type": "engineering",
+      "tools": ["tiktoken", "LangChain Memory", "OpenAI API"],
+      "objectives": [
+        "Count tokens accurately using tiktoken",
+        "Implement sliding window truncation for long conversations",
+        "Apply conversation summarization to compress context",
+        "Balance context window usage between system prompt, history, and retrieved docs"
+      ]
+    },
+    {
+      "day": 21,
+      "title": "AI Agents with ReAct",
+      "type": "agentic",
+      "tools": ["LangChain Agents", "OpenAI Tools", "Tavily", "Python REPL"],
+      "objectives": [
+        "Understand the ReAct (Reason + Act) agent pattern",
+        "Convert function-calling workflows into LangChain ReAct agents",
+        "Debug agent tool selection and reasoning traces",
+        "Implement agent safety limits (max iterations, timeouts)"
+      ]
+    },
+    {
+      "day": 22,
+      "title": "Multi-Agent Orchestration",
+      "type": "agentic",
+      "tools": ["CrewAI", "LangGraph", "AutoGen"],
+      "objectives": [
+        "Design multi-agent systems with specialized sub-agents",
+        "Implement a router agent that delegates to specialists",
+        "Handle agent failures and retries without cascading crashes",
+        "Compare CrewAI vs LangGraph orchestration approaches"
+      ]
+    },
+    {
+      "day": 23,
+      "title": "Model Context Protocol (MCP)",
+      "type": "agentic",
+      "tools": ["MCP Python SDK", "Claude Desktop", "FastMCP"],
+      "objectives": [
+        "Understand the MCP specification and its role in AI tooling",
+        "Build an MCP server exposing chatbot tools and resources",
+        "Connect an MCP client to consume exposed tools",
+        "Understand how MCP standardizes AI integration across clients"
+      ]
+    },
+    {
+      "day": 24,
+      "title": "Agentic Chatbot Integration",
+      "type": "agentic",
+      "tools": ["LangChain", "MCP", "ChromaDB", "Redis"],
+      "objectives": [
+        "Build a full agentic pipeline: agents + MCP + RAG + memory",
+        "Implement robust error handling and retries for agent tool calls",
+        "Manage shared state between agents using Redis",
+        "Test the complete agentic pipeline end-to-end"
+      ]
+    },
+    {
+      "day": 25,
+      "title": "Evaluation & Benchmarking",
+      "type": "quality",
+      "tools": ["RAGAS", "DeepEval", "LangSmith", "Pandas"],
+      "objectives": [
+        "Define evaluation metrics: faithfulness, relevance, groundedness, coherence",
+        "Build a benchmark dataset for the chatbot",
+        "Run automated evaluation pipelines with RAGAS",
+        "Use evaluation results to guide optimization decisions"
+      ]
+    },
+    {
+      "day": 26,
+      "title": "Performance & Cost Optimization",
+      "type": "quality",
+      "tools": ["tiktoken", "GPTCache", "LiteLLM", "Redis"],
+      "objectives": [
+        "Profile token usage across the entire pipeline",
+        "Implement semantic caching to reduce redundant LLM calls",
+        "Apply prompt compression to reduce context size",
+        "Measure and optimize end-to-end latency"
+      ]
+    },
+    {
+      "day": 27,
+      "title": "Security & Guardrails",
+      "type": "production",
+      "tools": ["NeMo Guardrails", "Rebuff", "Regex", "FastAPI middleware"],
+      "objectives": [
+        "Understand prompt injection attack vectors and defenses",
+        "Implement input sanitization and output validation",
+        "Add rate limiting and abuse prevention to the API",
+        "Design a layered security model for production AI systems"
+      ]
+    },
+    {
+      "day": 28,
+      "title": "Docker & Kubernetes Deployment",
+      "type": "production",
+      "tools": ["Docker", "Kubernetes", "Helm", "GitHub Actions"],
+      "objectives": [
+        "Containerize the chatbot application with Docker",
+        "Write a production-quality multi-stage Dockerfile",
+        "Deploy to Kubernetes with Deployments, Services, and Ingress",
+        "Manage secrets and environment variables in Kubernetes"
+      ]
+    },
+    {
+      "day": 29,
+      "title": "Monitoring & Observability",
+      "type": "production",
+      "tools": ["Prometheus", "Grafana", "LangSmith", "Langfuse"],
+      "objectives": [
+        "Understand observability vs. simple logging",
+        "Instrument the chatbot with Prometheus metrics",
+        "Build Grafana dashboards for AI pipeline health",
+        "Trace LLM calls and token usage with LangSmith"
+      ]
+    },
+    {
+      "day": 30,
+      "title": "Production Readiness & Testing",
+      "type": "production",
+      "tools": ["pytest", "locust", "GitHub Actions", "Postman"],
+      "objectives": [
+        "Define production readiness criteria for AI applications",
+        "Write integration tests for the complete chatbot pipeline",
+        "Run load tests to validate performance under concurrent users",
+        "Create operational runbooks for production incidents"
+      ]
+    },
+    {
+      "day": 31,
+      "title": "Capstone Project",
+      "type": "capstone",
+      "tools": ["All curriculum tools"],
+      "objectives": [
+        "Design and build a complete AI application from scratch",
+        "Integrate RAG, agents, evaluation, and production deployment",
+        "Present the architecture, challenges, and outcomes",
+        "Demonstrate production-readiness with live tests"
+      ]
+    }
+  ]
+}
