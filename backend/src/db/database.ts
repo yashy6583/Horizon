@@ -6,11 +6,24 @@ import { Candidate, InterviewSession, RecruiterVerdict } from '../types';
 const DB_PATH = path.resolve(__dirname, '../../../data/interview_agent.db');
 const DATA_DIR = path.resolve(__dirname, '../../../data');
 
-export const db = new Database(DB_PATH);
+let dbInstance: Database.Database;
+try {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+  dbInstance = new Database(DB_PATH);
+} catch (err) {
+  console.warn('[Database] Filesystem read-only or restricted. Initializing in-memory SQLite database:', err);
+  dbInstance = new Database(':memory:');
+}
+
+export const db = dbInstance;
 
 // Enable Foreign Keys & Write-Ahead Logging for high performance
-db.pragma('foreign_keys = ON');
-db.pragma('journal_mode = WAL');
+try {
+  db.pragma('foreign_keys = ON');
+  db.pragma('journal_mode = WAL');
+} catch (_) {}
 
 export function initDatabase() {
   console.log(`[Database] Initializing SQLite database at: ${DB_PATH}`);
