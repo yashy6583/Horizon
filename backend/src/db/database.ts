@@ -8,20 +8,26 @@ const DATA_DIR = path.resolve(__dirname, '../../../data');
 let dbInstance: any = null;
 let useSQLite = false;
 
-try {
-  const Database = require('better-sqlite3');
-  if (!fs.existsSync(DATA_DIR)) {
-    try { fs.mkdirSync(DATA_DIR, { recursive: true }); } catch (_) {}
-  }
+// Do not attempt to bundle/load native C++ binary better-sqlite3 in Vercel serverless lambda
+if (!process.env.VERCEL && !process.env.NOW_BUILDER) {
   try {
-    dbInstance = new Database(DB_PATH);
-  } catch (_) {
-    dbInstance = new Database(':memory:');
+    const req = eval('require');
+    const Database = req('better-sqlite3');
+    if (!fs.existsSync(DATA_DIR)) {
+      try { fs.mkdirSync(DATA_DIR, { recursive: true }); } catch (_) {}
+    }
+    try {
+      dbInstance = new Database(DB_PATH);
+    } catch (_) {
+      dbInstance = new Database(':memory:');
+    }
+    if (dbInstance) {
+      dbInstance.pragma('foreign_keys = ON');
+      useSQLite = true;
+    }
+  } catch (err) {
+    console.warn('[Database] SQLite native module not available. Using high-speed in-memory store.');
   }
-  dbInstance.pragma('foreign_keys = ON');
-  useSQLite = true;
-} catch (err) {
-  console.warn('[Database] SQLite native addon unavailable in serverless environment. Using high-speed in-memory store.');
 }
 
 export const db = dbInstance;
@@ -34,7 +40,6 @@ const memoryVerdicts: Map<string, RecruiterVerdict> = new Map();
 export function initDatabase() {
   if (useSQLite && dbInstance) {
     try {
-      console.log(`[Database] Initializing SQLite database...`);
       dbInstance.exec(`
         CREATE TABLE IF NOT EXISTS candidates (
           id TEXT PRIMARY KEY,
@@ -102,12 +107,10 @@ export function initDatabase() {
       seedDatabaseIfEmpty();
       return;
     } catch (e) {
-      console.warn('[Database] SQLite init error, switching to in-memory store:', e);
       useSQLite = false;
     }
   }
 
-  // Seed In-Memory Store
   seedMemoryStore();
 }
 
@@ -121,7 +124,6 @@ function seedMemoryStore() {
     for (const c of data.candidates) {
       memoryCandidates.set(c.member.id, c);
     }
-    console.log(`[Database] In-memory store seeded with ${memoryCandidates.size} candidates.`);
   } catch (err) {
     console.error('[Database] Failed to seed memory store:', err);
   }
@@ -174,9 +176,7 @@ function seedDatabaseIfEmpty() {
     });
 
     transaction(data.candidates);
-  } catch (err) {
-    console.error('[Database] Seeding SQLite error:', err);
-  }
+  } catch (err) {}
 }
 
 // ── CRUD Helpers ──────────────────────────────────────────────────
@@ -322,9 +322,7 @@ export function saveCandidateDB(candidate: Candidate): void {
     });
 
     transaction();
-  } catch (err) {
-    console.error('[Database] Error saving candidate to SQLite:', err);
-  }
+  } catch (err) {}
 }
 
 export function saveSessionDB(session: InterviewSession): void {
@@ -337,9 +335,7 @@ export function saveSessionDB(session: InterviewSession): void {
       VALUES (?, ?, ?, ?, ?, ?)
     `);
     insertOrReplaceSession.run(session.sessionId, session.candidateId, session.persona || 'engineer', session.status, session.questionCount, session.difficulty);
-  } catch (err) {
-    console.error('[Database] Error saving session to SQLite:', err);
-  }
+  } catch (err) {}
 }
 
 export function saveRecruiterVerdictDB(sessionId: string, verdict: RecruiterVerdict): void {
@@ -352,7 +348,5 @@ export function saveRecruiterVerdictDB(sessionId: string, verdict: RecruiterVerd
       VALUES (?, ?, ?, ?, ?, ?)
     `);
     insertOrReplace.run(sessionId, verdict.verdict, verdict.confidence, verdict.recruiterNotes, JSON.stringify(verdict.evidenceFor), JSON.stringify(verdict.evidenceAgainst));
-  } catch (err) {
-    console.error('[Database] Error saving verdict to SQLite:', err);
-  }
+  } catch (err) {}
 }
