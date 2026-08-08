@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
 import interviewRouter from './routes/interview';
 import dataRouter from './routes/data';
 import { initDatabase } from './db/database';
@@ -42,10 +43,24 @@ app.get('/health', (_req, res) => {
   });
 });
 
-// 404
-app.use((_req, res) => {
-  res.status(404).json({ error: 'Route not found' });
-});
+import path from 'path';
+
+// Serve frontend static assets if dist exists
+const frontendDist = path.join(__dirname, '../../frontend/dist');
+if (fs.existsSync(frontendDist)) {
+  app.use(express.static(frontendDist));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/health')) {
+      return next();
+    }
+    res.sendFile(path.join(frontendDist, 'index.html'));
+  });
+} else {
+  // 404
+  app.use((_req, res) => {
+    res.status(404).json({ error: 'Route not found' });
+  });
+}
 
 app.listen(PORT, () => {
   const apiKey = process.env.OPENAI_API_KEY;
