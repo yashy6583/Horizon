@@ -14,10 +14,11 @@
 
 | Resource | Description | Direct Link |
 | :--- | :--- | :--- |
-| 🌐 **Production Website** | Main User Interface & AI Platform | **[https://the-interview-agent-topaz.vercel.app](https://the-interview-agent-topaz.vercel.app)** |
-| ⚡ **API Health Check** | Live Backend Status & AI Mode | **[https://the-interview-agent-topaz.vercel.app/health](https://the-interview-agent-topaz.vercel.app/health)** |
-| 📊 **Candidates REST API** | Cohort JSON Data & Performance Signals | **[https://the-interview-agent-topaz.vercel.app/api/candidates](https://the-interview-agent-topaz.vercel.app/api/candidates)** |
-| 📚 **Curriculum REST API** | 31-Day AI Engineering Skill Matrix | **[https://the-interview-agent-topaz.vercel.app/api/curriculum](https://the-interview-agent-topaz.vercel.app/api/curriculum)** |
+| 🌐 **Production Website (Primary)** | Main User Interface & AI Platform | **[https://the-interview-agent-five.vercel.app](https://the-interview-agent-five.vercel.app)** |
+| 🌐 **Production Website (Mirror)** | Secondary Live Production Domain | **[https://the-interview-agent-topaz.vercel.app](https://the-interview-agent-topaz.vercel.app)** |
+| ⚡ **API Health Check** | Live Backend Status & AI Mode | **[https://the-interview-agent-five.vercel.app/health](https://the-interview-agent-five.vercel.app/health)** |
+| 📊 **Candidates REST API** | Cohort JSON Data & Performance Signals | **[https://the-interview-agent-five.vercel.app/api/candidates](https://the-interview-agent-five.vercel.app/api/candidates)** |
+| 📚 **Curriculum REST API** | 31-Day AI Engineering Skill Matrix | **[https://the-interview-agent-five.vercel.app/api/curriculum](https://the-interview-agent-five.vercel.app/api/curriculum)** |
 
 ---
 
