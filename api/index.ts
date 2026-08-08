@@ -7,8 +7,12 @@ import { initDatabase } from '../backend/src/db/database';
 
 dotenv.config();
 
-// Initialize Database
-initDatabase();
+// Safely initialize Database
+try {
+  initDatabase();
+} catch (err) {
+  console.error('[Vercel API] Non-fatal DB init warning:', err);
+}
 
 const app = express();
 
@@ -30,18 +34,21 @@ app.use((req, _res, next) => {
 app.use('/api/interview', interviewRouter);
 app.use('/api', dataRouter);
 
-// Health check
-app.get('/health', (_req, res) => {
+// Health checks
+const handleHealth = (_req: express.Request, res: express.Response) => {
   const apiKey = process.env.OPENAI_API_KEY;
-  const isLiveMode = apiKey && apiKey.length > 10 && apiKey !== 'your-openai-api-key-here';
+  const isLiveMode = Boolean(apiKey && apiKey.length > 10 && apiKey !== 'your-openai-api-key-here');
   res.json({
     status: 'ok',
     mode: isLiveMode ? 'live' : 'demo',
     timestamp: new Date().toISOString(),
   });
-});
+};
 
-// 404
+app.get('/health', handleHealth);
+app.get('/api/health', handleHealth);
+
+// Catch-all
 app.use((_req, res) => {
   res.status(404).json({ error: 'Route not found' });
 });
